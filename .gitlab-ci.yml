@@ -1,26 +1,31 @@
 build-x86_64-image:
   stage: build
+  image: docker:latest
   script:
     - chmod +x ./build.sh; ./build.sh
 
 build-ppc64le-image:
   stage: build
+  image: docker:latest
   script:
     - chmod +x ./build.sh; ./build.sh
 
 build-multi-arch-image:
   stage: build
+  image: docker:latest
   script:
     - chmod +x ./create-multi-arch.sh; ./create-multi-arch.sh
 
 test-multi-arch-image-on-x86_64:
   stage: test
+  image: docker:latest
   script:
     - docker pull quay.io/snehakpersistent/multi-arch-travis:latest 
     - docker run --rm quay.io/snehakpersistent/multi-arch-travis:latest
 
 test-multi-arch-image-on-ppc64le:
   stage: test
+  image: docker:latest
   script:
     - docker pull quay.io/snehakpersistent/multi-arch-travis:latest 
     - docker run --rm quay.io/snehakpersistent/multi-arch-travis:latest
