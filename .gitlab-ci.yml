@@ -1,23 +1,37 @@
+stages:
+  - build:arch-specific
+  - build:multiarch
+  - build:app
+  - test
+  - deploy
+
 build-x86_64-image:
-  stage: build
+  stage: build:arch-specific
   tags:
     - shell-x86
   script:
     - chmod +x ./build.sh; ./build.sh
 
 build-ppc64le-image:
-  stage: build
+  stage: build:arch-specific
   tags:
     - shell-ppc
   script:
     - chmod +x ./build.sh; ./build.sh
 
 build-multi-arch-image:
-  stage: build
+  stage: build:multiarch
   tags:
     - shell-ppc
   script:
     - chmod +x ./create-multi-arch.sh; ./create-multi-arch.sh
+
+build-app-image:
+  stage: build:app
+  tags:
+    - shell-ppc
+  script:
+    - chmod +x ./build_app.sh; ./build_app.sh
 
 test-multi-arch-image-on-x86_64:
   stage: test
