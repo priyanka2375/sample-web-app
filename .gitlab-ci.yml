@@ -1,6 +1,6 @@
 stages:
   - build:arch-specific
-  - build:multiarch
+  - build:multi-arch
   - build:app
   - test
   - deploy
@@ -20,7 +20,7 @@ build-ppc64le-image:
     - chmod +x ./build.sh; ./build.sh
 
 build-multi-arch-image:
-  stage: build:multiarch
+  stage: build:multi-arch
   tags:
     - shell-ppc
   script:
@@ -55,8 +55,7 @@ deploy-app:
     - ssh-ppc
   script:
     - oc login -u=$username -p=$password
-    - oc project $project_name
-    - ocprojectcheck=$?
+    - oc project $project_name || ocprojectcheck=$?
     - echo $ocprojectcheck
     - if [ $ocprojectcheck == 1 ]; 
       then 
