@@ -51,9 +51,8 @@ test-multi-arch-image-on-ppc64le:
 
 deploy-app:
   stage: deploy
-  image: registry.gitlab.com/skanekar/sample-web-app/alpine:latest-ppc
   tags:
-    - k8s-ppc
+    - ssh-ppc
   script:
     - oc login -u=$username -p=$password
     - oc project $project_name
