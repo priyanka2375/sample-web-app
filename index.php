@@ -1,3 +1,3 @@
 <?php
-print "Hello, World! Testing after switching to podman. PHP version is " . PHP_VERSION . "\n";
+print "Hello, World! Using docker for creating containers. PHP version is " . PHP_VERSION . "\n";
 ?>
