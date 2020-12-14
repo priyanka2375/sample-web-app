@@ -10,7 +10,6 @@ build-x86_64-image:
   tags:
     - shell-x86
   script:
-    - podman login registry.gitlab.com -u $gitlab_user -p $gitlab_token
     - chmod +x ./build.sh; ./build.sh
 
 build-ppc64le-image:
@@ -18,7 +17,6 @@ build-ppc64le-image:
   tags:
     - shell-ppc
   script:
-    - podman login registry.gitlab.com -u $gitlab_user -p $gitlab_token
     - chmod +x ./build.sh; ./build.sh
 
 build-multi-arch-image:
@@ -40,16 +38,16 @@ test-multi-arch-image-on-x86_64:
   tags:
     - shell-x86
   script:
-    - podman pull quay.io/snehakpersistent/multi-arch-travis:latest 
-    - podman run --rm quay.io/snehakpersistent/multi-arch-travis:latest
+    - docker pull quay.io/snehakpersistent/multi-arch-travis:latest 
+    - docker run --rm quay.io/snehakpersistent/multi-arch-travis:latest
 
 test-multi-arch-image-on-ppc64le:
   stage: test
   tags:
     - shell-ppc
   script:
-    - podman pull quay.io/snehakpersistent/multi-arch-travis:latest 
-    - podman run --rm quay.io/snehakpersistent/multi-arch-travis:latest
+    - docker pull quay.io/snehakpersistent/multi-arch-travis:latest 
+    - docker run --rm quay.io/snehakpersistent/multi-arch-travis:latest
 
 deploy-app:
   stage: deploy
