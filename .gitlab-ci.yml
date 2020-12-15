@@ -54,8 +54,8 @@ test-app-image-on-ppc64le:
   tags:
     - shell-ppc
   script:
-    - docker pull $image:$ppc_tag 
-    - docker run --rm $image:$ppc_tag
+    - docker pull quay.io/snehakpersistent/sample-php-app:ppc64le
+    - docker run --rm quay.io/snehakpersistent/sample-php-app:ppc64le
 
 deploy-app:
   stage: deploy
