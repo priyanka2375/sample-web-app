@@ -38,16 +38,24 @@ test-multi-arch-image-on-x86_64:
   tags:
     - shell-x86
   script:
-    - docker pull quay.io/snehakpersistent/multi-arch-travis:latest 
-    - docker run --rm quay.io/snehakpersistent/multi-arch-travis:latest
+    - docker pull quay.io/snehakpersistent/multi-arch-image:latest 
+    - docker run --rm quay.io/snehakpersistent/multi-arch-image:latest
 
 test-multi-arch-image-on-ppc64le:
   stage: test
   tags:
     - shell-ppc
   script:
-    - docker pull quay.io/snehakpersistent/multi-arch-travis:latest 
-    - docker run --rm quay.io/snehakpersistent/multi-arch-travis:latest
+    - docker pull quay.io/snehakpersistent/multi-arch-image:latest 
+    - docker run --rm quay.io/snehakpersistent/multi-arch-image:latest
+
+test-app-image-on-ppc64le:
+  stage: test
+  tags:
+    - shell-ppc
+  script:
+    - docker pull $image:$ppc_tag 
+    - docker run --rm $image:$ppc_tag
 
 deploy-app:
   stage: deploy
