@@ -1,4 +1,4 @@
-FROM quay.io/snehakpersistent/multi-arch-travis:latest
+FROM quay.io/snehakpersistent/multi-arch-image:latest
 
 RUN apt-get -y update \
     && apt-get install -y curl
