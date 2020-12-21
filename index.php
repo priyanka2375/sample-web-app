@@ -1,3 +1,3 @@
 <?php
-print "Hello, World! Using docker for building images. PHP version is " . PHP_VERSION . "\n";
+print "Hello, World! Web page is on master branch. PHP version is " . PHP_VERSION . "\n";
 ?>
