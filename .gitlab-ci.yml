@@ -49,22 +49,6 @@ test-multi-arch-image-on-ppc64le:
     - docker pull quay.io/snehakpersistent/multi-arch-image:latest 
     - docker run --rm quay.io/snehakpersistent/multi-arch-image:latest
 
-test-docker-executor:
-  stage: test
-  tags:
-    - docker-ppc
-  script:
-    - echo "Hello docker executor!"
-    - touch testdocker.txt
-
-test-k8s-executor:
-  stage: test
-  tags:
-    - k8s-ppc
-  script:
-    - echo "Hello K8s executor!"
-    - touch testk8s.txt
-
 deploy-app:
   stage: deploy
   tags:
