@@ -1,12 +1,18 @@
 #!/bin/bash
 
-export DOCKER_CLI_EXPERIMENTAL=enabled
+#export DOCKER_CLI_EXPERIMENTAL=enabled
+# Delete manifest if it already exists
+manifestcheck=0
+sudo podman image inspect quay.io/snehakpersistent/multi-arch-image:latest || manifestcheck=$?
+if [[ $manifestcheck == 0 ]]; then 
+    sudo podman rmi quay.io/snehakpersistent/multi-arch-image:latest
+fi
+sudo podman pull quay.io/snehakpersistent/multi-arch-image:x86_64 
+sudo podman pull quay.io/snehakpersistent/multi-arch-image:ppc64le
+sudo podman manifest create --all quay.io/snehakpersistent/multi-arch-image:latest docker://quay.io/snehakpersistent/multi-arch-image:x86_64 docker://quay.io/snehakpersistent/multi-arch-image:ppc64le
 
-docker manifest create quay.io/snehakpersistent/multi-arch-image:latest \
-quay.io/snehakpersistent/multi-arch-image:x86_64 quay.io/snehakpersistent/multi-arch-image:ppc64le
+sudo podman manifest inspect quay.io/snehakpersistent/multi-arch-image
 
-docker manifest inspect quay.io/snehakpersistent/multi-arch-image
+sudo podman login quay.io -u "$ROBOT_USER" -p $ROBOT_TOKEN
 
-docker login quay.io -u "$ROBOT_USER" -p $ROBOT_TOKEN
-
-docker manifest push quay.io/snehakpersistent/multi-arch-image:latest
+sudo podman manifest push --all quay.io/snehakpersistent/multi-arch-image:latest docker://quay.io/snehakpersistent/multi-arch-image:latest --format v2s2
