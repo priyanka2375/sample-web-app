@@ -1,0 +1,9 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: quay-source-x86-ppc
+spec:
+  type: image
+  params:
+    - name: url
+      value: quay.io/snehakpersistent/tekton-multi-arch
