@@ -8,12 +8,12 @@ spec:
     name: build-arch-specific-image
   params:
     - name: pathToDockerFile
-      value: x86_64/Dockerfile
+      value: ppc64le/Dockerfile
   resources:
     inputs:
       - name: docker-source
         resourceRef:
-          name: x86-git-source
+          name: ppc-git-source
     outputs:
       - name: builtImage
         resourceRef:
