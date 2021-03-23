@@ -1,0 +1,40 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: sample-webapp-pipeline
+spec:
+  resources:
+    - name: docker-source
+      type: git
+    - name: builtImage
+      type: image
+  tasks:
+    - name: build-ppc-image
+      taskRef:
+        name: build-arch-specific-image
+      params:
+        - name: pathToDockerFile
+          value: ppc64le/Dockerfile
+        - name: pathToContext
+          value: https://github.com/snehakpersistent/sample-web-app
+      resources:
+        inputs:
+          - name: docker-source
+            resource: ppc-git-source
+        outputs:
+          - name: builtImage
+            resource: quay-source-x86-ppc
+    - name: build-x86-image
+      taskRef:
+        name: build-arch-specific-image
+      resources:
+        inputs:
+          - name: source
+            resource: x86-git-source
+          - name: image
+            resource: quay-source-x86-ppc
+      params:
+        - name: pathToDockerFile
+          value: x86_64/Dockerfile
+        - name: pathToContext
+          value: https://github.com/snehakpersistent/sample-web-app
