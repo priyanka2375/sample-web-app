@@ -1,4 +1,4 @@
-apiVersion: tekton.dev/v1aplha1
+apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
   name: quay-resource-ppc
