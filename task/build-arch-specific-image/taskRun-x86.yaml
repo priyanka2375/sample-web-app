@@ -1,0 +1,20 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: build-x86-image-taskrun
+spec:
+  serviceAccountName: pipeline
+  taskRef:
+    name: build-arch-specific-image
+  params:
+    - name: pathToDockerFile
+      value: x86_64/Dockerfile
+  resources:
+    inputs:
+      - name: docker-source
+        resourceRef:
+          name: x86-git-source
+    outputs:
+      - name: builtImage
+        resourceRef:
+          name: quay-resource-x86
