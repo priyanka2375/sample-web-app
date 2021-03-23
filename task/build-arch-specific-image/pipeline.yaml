@@ -20,12 +20,10 @@ spec:
       resources:
         inputs:
           - name: docker-source
-            resourceRef:
-              name: ppc-git-source
+            resource: ppc-git-source
         outputs:
           - name: builtImage
-            resourceRef:
-              name: quay-resource-ppc
+            resource: quay-resource-ppc
     - name: build-x86-image
       taskRef:
         name: build-arch-specific-image
@@ -37,9 +35,7 @@ spec:
       resources:
         inputs:
           - name: docker-source
-            resourceRef:
-              name: x86-git-source
+            resource: x86-git-source
         outputs:
           - name: builtImage
-            resourceRef:
-              name: quay-resource-x86
+            resource: quay-resource-x86
