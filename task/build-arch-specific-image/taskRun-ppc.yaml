@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: TaskRun
 metadata:
-  name: build-arch-specific-image-taskrun
+  name: build-ppc-image-taskrun
 spec:
   serviceAccountName: pipeline
   taskRef:
@@ -17,4 +17,4 @@ spec:
     outputs:
       - name: builtImage
         resourceRef:
-          name: quay-source-x86-ppc
+          name: quay-resource-ppc
