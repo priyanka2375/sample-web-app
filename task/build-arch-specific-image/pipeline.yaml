@@ -27,14 +27,15 @@ spec:
     - name: build-x86-image
       taskRef:
         name: build-arch-specific-image
-      resources:
-        inputs:
-          - name: source
-            resource: x86-git-source
-          - name: image
-            resource: quay-source-x86-ppc
       params:
         - name: pathToDockerFile
           value: x86_64/Dockerfile
         - name: pathToContext
           value: https://github.com/snehakpersistent/sample-web-app
+      resources:
+        inputs:
+          - name: docker-source
+            resource: x86-git-source
+        outputs:
+          - name: builtImage
+            resource: quay-source-x86-ppc
