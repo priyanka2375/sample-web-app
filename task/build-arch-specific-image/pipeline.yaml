@@ -3,6 +3,10 @@ kind: Pipeline
 metadata:
   name: sample-webapp-pipeline
 spec:
+  params: 
+    - name: pathToDockerFile-x86
+    - name: pathToDockerFile-ppc
+    - name: pathToContext
   resources:
     - name: docker-source
       type: git
@@ -14,9 +18,9 @@ spec:
         name: build-arch-specific-image
       params:
         - name: pathToDockerFile
-          value: ppc64le/Dockerfile
+          value: $(params.pathToDockerFile-ppc)
         - name: pathToContext
-          value: https://github.com/snehakpersistent/sample-web-app
+          value: $(params.pathToContext)
       resources:
         inputs:
           - name: docker-source
@@ -29,9 +33,9 @@ spec:
         name: build-arch-specific-image
       params:
         - name: pathToDockerFile
-          value: x86_64/Dockerfile
+          value: $(params.pathToDockerFile-x86)
         - name: pathToContext
-          value: https://github.com/snehakpersistent/sample-web-app
+          value: $(params.pathToContext)
       resources:
         inputs:
           - name: docker-source
