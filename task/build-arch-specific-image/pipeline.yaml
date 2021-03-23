@@ -4,9 +4,7 @@ metadata:
   name: sample-webapp-pipeline
 spec:
   resources:
-    - name: docker-source-ppc
-      type: git
-    - name: docker-source-x86
+    - name: docker-source
       type: git
     - name: builtImage
       type: image
@@ -21,7 +19,7 @@ spec:
           value: https://github.com/snehakpersistent/sample-web-app
       resources:
         inputs:
-          - name: docker-source-ppc
+          - name: docker-source
             resource: ppc-git-source
         outputs:
           - name: builtImage
@@ -36,7 +34,7 @@ spec:
           value: https://github.com/snehakpersistent/sample-web-app
       resources:
         inputs:
-          - name: docker-source-x86
+          - name: docker-source
             resource: x86-git-source
         outputs:
           - name: builtImage
