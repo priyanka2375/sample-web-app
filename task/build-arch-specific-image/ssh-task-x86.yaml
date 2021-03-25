@@ -1,0 +1,11 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-arch-specific-image-x86
+spec:
+  steps:
+    - name: build-and-push
+      image: quay.io/snehakpersistent/centos:8
+      script: |
+    #!/usr/bin/env bash
+    echo "Hello from Bash!"
