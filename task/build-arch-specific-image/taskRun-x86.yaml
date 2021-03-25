@@ -5,18 +5,4 @@ metadata:
 spec:
   serviceAccountName: pipeline
   taskRef:
-    name: build-arch-specific-image
-  params:
-    - name: pathToDockerFile
-      value: x86_64/Dockerfile
-    - name: pathToContext
-      value: https://github.com/snehakpersistent/sample-web-app
-  resources:
-    inputs:
-      - name: docker-source
-        resourceRef:
-          name: git-source
-    outputs:
-      - name: builtImage
-        resourceRef:
-          name: quay-resource-x86
+    name: build-arch-specific-image-x86
