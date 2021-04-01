@@ -7,11 +7,13 @@ spec:
     - name: pathToDockerFile
       type: string
       description: The path to the dockerfile to build
+      default: $(resources.inputs.docker-source.path)/ppc64le/Dockerfile
     - name: pathToContext
       type: string
       description: |
         The build context used by Kaniko
-        (https://github.com/GoogleContainerTools/kaniko#kaniko-build-contexts)
+        (https://github.com/GoogleContainerTools/kaniko#kaniko-build-conitexts)
+      default: $(resources.inputs.docker-source.path)
   resources:
     inputs:
       - name: docker-source
@@ -21,7 +23,7 @@ spec:
         type: image
   steps:
     - name: build-and-push
-      image: quay.io/snehakpersistent/kaniko:v1.5.0
+      image: quay.io/snehakpersistent/kaniko:latest-ppc
       # specifying DOCKER_CONFIG is required to allow kaniko to detect docker credential
       env:
         - name: "DOCKER_CONFIG"
@@ -31,4 +33,4 @@ spec:
       args:
         - --dockerfile=$(params.pathToDockerFile)
         - --destination=$(resources.outputs.builtImage.url)
-        - --context=$(params.pathToContext)
+        - --context=/workspace/docker-source
