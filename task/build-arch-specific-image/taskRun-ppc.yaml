@@ -5,7 +5,7 @@ metadata:
 spec:
   serviceAccountName: pipeline
   taskRef:
-    name: build-arch-specific-image
+    name: build-arch-specific-image-ppc
   params:
     - name: pathToDockerFile
       value: ppc64le/Dockerfile

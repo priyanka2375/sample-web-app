@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: build-arch-specific-image
+  name: build-arch-specific-image-x86
 spec:
   params:
     - name: pathToDockerFile
@@ -18,12 +18,14 @@ spec:
     inputs:
       - name: docker-source
         type: git
+      - name: test-cluster
+        type: cluster
     outputs:
       - name: builtImage
         type: image
   steps:
     - name: build-and-push
-      image: quay.io/snehakpersistent/kaniko:latest-ppc
+      image: gcr.io/kaniko-project/executor:latest
       # specifying DOCKER_CONFIG is required to allow kaniko to detect docker credential
       env:
         - name: "DOCKER_CONFIG"

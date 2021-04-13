@@ -3,4 +3,4 @@ kind: ServiceAccount
 metadata:
   name: pipeline
 secrets:
-  - name: quay-secret
+  - name: quay-secret-ppc

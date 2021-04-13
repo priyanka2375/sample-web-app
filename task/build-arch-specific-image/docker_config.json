@@ -1,0 +1,19 @@
+{
+ "auths":
+ {
+   "quay.io":
+   {
+     "username":"snehakpersistent+test",
+     "password":"WHRGN30TUI98LY24ESQSWCAA9CKPD4OE3LE764E8QD9GJUCCDBKX4NREK558LHWM",
+     "auth":"c25laGFrcGVyc2lzdGVudCt0ZXN0OldIUkdOMzBUVUk5OExZMjRFU1FTV0NBQTlDS1BENE9FM0xFNzY0RThRRDlHSlVDQ0RCS1g0TlJFSzU1OExIV00="
+   }
+ },
+ "proxies":
+ {
+   "default":
+   {
+     "httpProxy": "http://sneha-3d3ceb-bastion-0:3128",
+     "httpsProxy": "http://sneha-3d3ceb-bastion-0:3128"
+   }
+ }
+}

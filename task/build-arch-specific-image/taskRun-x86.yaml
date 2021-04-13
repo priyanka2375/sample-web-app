@@ -5,7 +5,7 @@ metadata:
 spec:
   serviceAccountName: pipeline
   taskRef:
-    name: build-arch-specific-image
+    name: build-arch-specific-image-x86
   params:
     - name: pathToDockerFile
       value: x86_64/Dockerfile
@@ -16,6 +16,9 @@ spec:
       - name: docker-source
         resourceRef:
           name: git-source
+      - name: test-cluster
+        resourceRef:
+          name: x86-cluster
     outputs:
       - name: builtImage
         resourceRef:
