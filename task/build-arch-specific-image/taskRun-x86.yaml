@@ -15,7 +15,7 @@ spec:
     inputs:
       - name: docker-source
         resourceRef:
-          name: git-source
+          name: git-source-x86
       - name: test-cluster
         resourceRef:
           name: x86-cluster
