@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: build-arch-specific-image-x86
+  name: build-arch-specific-image-x86-oncluster
 spec:
   params:
     - name: pathToDockerFile
@@ -18,8 +18,6 @@ spec:
     inputs:
       - name: docker-source
         type: git
-      - name: test-cluster
-        type: cluster
     outputs:
       - name: builtImage
         type: image

@@ -58,6 +58,6 @@ spec:
         oc apply -f $(resources.inputs.docker-source.path)/task/build-arch-specific-image/git-resource-x86.yaml
         oc apply -f $(resources.inputs.docker-source.path)/task/build-arch-specific-image/quay-resource-x86.yaml
         oc apply -f $(resources.inputs.docker-source.path)/task/build-arch-specific-image/task-x86-oncluster.yaml
-        oc apply -f $(resources.inputs.docker-source.path)/task/build-arch-specific-image/taskRun-x86.yaml
+        oc apply -f $(resources.inputs.docker-source.path)/task/build-arch-specific-image/taskRun-x86-oncluster.yaml
         tkn taskrun logs --last -f
         #oc run kaniko --quiet=false --image="gcr.io/kaniko-project/executor:latest" --env="https_proxy=http://sneha-3d3ceb-bastion-0:3128" --env="http_proxy=http://sneha-3d3ceb-bastion-0:3128" --command=true -- /kaniko/executor --dockerfile=/root/sample-web-app/x86_64/Dockerfile --destination=$(resources.outputs.builtImage.url) --context=/workspace/docker-source --build-arg https_proxy=http://sneha-3d3ceb-bastion-0:3128 --build-arg http_proxy=http://sneha-3d3ceb-bastion-0:3128
