@@ -10,27 +10,28 @@ spec:
   resources:
     - name: docker-source
       type: git
-    - name: builtImage
+    - name: test-cluster
+      type: cluster
+    - name: builtImage-x86
+      type: image
+    - name: builtImage-ppc
       type: image
   tasks:
-    - name: build-ppc-image
+    - name: build-x86-image
       taskRef:
-        name: build-arch-specific-image
-      params:
-        - name: pathToDockerFile
-          value: $(params.pathToDockerFile-ppc)
-        - name: pathToContext
-          value: $(params.pathToContext)
+        name: build-arch-specific-image-x86
       resources:
         inputs:
           - name: docker-source
-            resource: git-source
+            resource: git-source-x86
+          - name: test-cluster
+            resource: x86-cluster
         outputs:
           - name: builtImage
-            resource: quay-resource-ppc
-    - name: build-x86-image
+            resource: quay-resource-x86
+    - name: build-ppc-image
       taskRef:
-        name: build-arch-specific-image
+        name: build-arch-specific-image-ppc
       params:
         - name: pathToDockerFile
           value: $(params.pathToDockerFile-x86)
@@ -42,4 +43,4 @@ spec:
             resource: git-source
         outputs:
           - name: builtImage
-            resource: quay-resource-x86
+            resource: quay-resource-ppc
