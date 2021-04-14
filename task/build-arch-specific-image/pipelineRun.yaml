@@ -1,0 +1,21 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: sample-webapp-pipelinerun
+spec:
+  serviceAccountName: pipeline
+  pipelineRef:
+    name: sample-webapp-pipeline
+  resources:
+    - name: docker-source
+      resourceRef:
+        name: git-source-ppc
+    - name: test-cluster
+      resourceRef:
+        name: x86-cluster
+    - name: builtImage-x86
+      resourceRef:
+        name: quay-resource-x86
+    - name: builtImage-ppc
+      resourceRef:
+        name: quay-resource-ppc
