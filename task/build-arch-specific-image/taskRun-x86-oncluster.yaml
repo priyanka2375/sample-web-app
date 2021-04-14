@@ -15,7 +15,7 @@ spec:
     inputs:
       - name: docker-source
         resourceRef:
-          name: git-source-x86
+          name: git-source-x86-oncluster
     outputs:
       - name: builtImage
         resourceRef:
