@@ -3,17 +3,6 @@ kind: Task
 metadata:
   name: build-arch-specific-image-x86
 spec:
-  params:
-    - name: pathToDockerFile
-      type: string
-      description: The path to the dockerfile to build
-      default: $(resources.inputs.docker-source.path)/ppc64le/Dockerfile
-    - name: pathToContext
-      type: string
-      description: |
-        The build context used by Kaniko
-        (https://github.com/GoogleContainerTools/kaniko#kaniko-build-conitexts)
-      default: $(resources.inputs.docker-source.path)
   resources:
     inputs:
       - name: docker-source
@@ -25,26 +14,14 @@ spec:
         type: image
   steps:
     - name: build-and-push
-      #image: gcr.io/kaniko-project/executor:debug
       image: centos:latest
-      # specifying DOCKER_CONFIG is required to allow kaniko to detect docker credential
       env:
-        - name: "DOCKER_CONFIG"
-          value: "/tekton/home/.docker/"
         - name: "KUBECONFIG"
           value: "/workspace/test-cluster/kubeconfig"
         - name: "https_proxy"
           value: "http://sneha-3d3ceb-bastion-0:3128"
         - name: "http_proxy"
-          value: "http://sneha-3d3ceb-bastion-0:3128"
-        - name: "HTTPS_PROXY"
-          value: "http://sneha-3d3ceb-bastion-0:3128"
-        - name: "HTTP_PROXY"
-          value: "http://sneha-3d3ceb-bastion-0:3128"
-        - name: "no_proxy"
-          value: ".cluster.local,.sneha-3d3ceb.130.198.103.117.nip.io,.svc,10.0.0.0/16,10.128.0.0/14,127.0.0.1,172.30.0.0/16,192.168.0.0/24,api-int.sneha-3d3ceb.130.198.103.117.nip.io,localhost"
-        - name: "NO_PROXY"
-          value: ".cluster.local,.sneha-3d3ceb.130.198.103.117.nip.io,.svc,10.0.0.0/16,10.128.0.0/14,127.0.0.1,172.30.0.0/16,192.168.0.0/24,api-int.sneha-3d3ceb.130.198.103.117.nip.io,localhost"
+          value: "http://sneha-3d3ceb-bastion-0:3128"       
       script: |
         #!/bin/sh
         yum install -y wget tar
@@ -54,11 +31,10 @@ spec:
         oc version
         rpm -Uvh https://github.com/tektoncd/cli/releases/download/v0.16.0/tektoncd-cli-0.16.0_Linux-ppc64le.rpm
         oc project sample-web-app
-        oc get secret
         oc apply -f $(resources.inputs.docker-source.path)/task/build-arch-specific-image/sa-pipeline.yaml
-        oc apply -f $(resources.inputs.docker-source.path)/task/build-arch-specific-image/git-resource-x86.yaml
+        oc apply -f $(resources.inputs.docker-source.path)/task/build-arch-specific-image/git-resource-x86-oncluster.yaml
         oc apply -f $(resources.inputs.docker-source.path)/task/build-arch-specific-image/quay-resource-x86.yaml
         oc apply -f $(resources.inputs.docker-source.path)/task/build-arch-specific-image/task-x86-oncluster.yaml
         oc apply -f $(resources.inputs.docker-source.path)/task/build-arch-specific-image/taskRun-x86-oncluster.yaml
         tkn taskrun logs --last -f
-        #oc run kaniko --quiet=false --image="gcr.io/kaniko-project/executor:latest" --env="https_proxy=http://sneha-3d3ceb-bastion-0:3128" --env="http_proxy=http://sneha-3d3ceb-bastion-0:3128" --command=true -- /kaniko/executor --dockerfile=/root/sample-web-app/x86_64/Dockerfile --destination=$(resources.outputs.builtImage.url) --context=/workspace/docker-source --build-arg https_proxy=http://sneha-3d3ceb-bastion-0:3128 --build-arg http_proxy=http://sneha-3d3ceb-bastion-0:3128
+        
