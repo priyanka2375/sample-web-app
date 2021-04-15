@@ -40,7 +40,7 @@ spec:
       resources:
         inputs:
           - name: docker-source
-            resource: git-source
+            resource: git-source-ppc
         outputs:
           - name: builtImage
             resource: quay-resource-ppc
