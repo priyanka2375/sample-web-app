@@ -7,9 +7,12 @@ spec:
   pipelineRef:
     name: sample-webapp-pipeline
   resources:
-    - name: docker-source
+    - name: docker-source-ppc
       resourceRef:
         name: git-source-ppc
+    - name: docker-source-x86
+      resourceRef:
+        name: git-source-x86
     - name: test-cluster
       resourceRef:
         name: x86-cluster
