@@ -23,7 +23,7 @@ spec:
       resources:
         inputs:
           - name: docker-source
-            resource: git-source-x86
+            resource: git-source-ppc
           - name: test-cluster
             resource: x86-cluster
         outputs:
