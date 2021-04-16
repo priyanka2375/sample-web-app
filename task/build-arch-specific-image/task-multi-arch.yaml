@@ -1,0 +1,28 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-multi-arch-image
+spec:
+  resources:
+    inputs:
+      - name: x86-image
+        type: image
+      - name: ppc-image
+        type: image
+    outputs:
+      - name: multi-arch-image
+        type: image
+  steps:
+    - name: create-manifest-and-push
+      image: mplatform/manifest-tool:v1.0.3
+      env:
+        - name: "DOCKER_CONFIG"
+          value: "/tekton/home/.docker/"
+        - name: "https_proxy"
+          value: "http://sneha-3d3ceb-bastion-0:3128"
+        - name: "http_proxy"
+          value: "http://sneha-3d3ceb-bastion-0:3128"
+      command:
+        - ./manifest-tool
+      args:
+        - inspect
