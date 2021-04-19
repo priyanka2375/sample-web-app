@@ -1,4 +1,4 @@
-FROM quay.io/snehakpersistent/multi-arch-image:latest
+FROM quay.io/snehakpersistent/tekton-multi-arch:latest
 
 RUN apt-get -y update \
     && apt-get install -y curl
