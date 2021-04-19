@@ -6,6 +6,11 @@ spec:
   serviceAccountName: pipeline
   pipelineRef:
     name: sample-webapp-pipeline
+  params:
+    - name: pathToDockerFile-ppc
+      value: ppc64le/Dockerfile
+    - name: pathToContext
+      value: https://github.com/snehakpersistent/sample-web-app
   resources:
     - name: docker-source-ppc
       resourceRef:
@@ -22,3 +27,7 @@ spec:
     - name: builtImage-ppc
       resourceRef:
         name: quay-resource-ppc
+    - name: builtImage-multiarch
+      resourceRef:
+        name: quay-resource-multiarch
+

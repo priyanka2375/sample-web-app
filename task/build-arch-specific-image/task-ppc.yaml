@@ -7,16 +7,16 @@ spec:
     - name: pathToDockerFile
       type: string
       description: The path to the dockerfile to build
-      default: $(resources.inputs.docker-source-ppc.path)/ppc64le/Dockerfile
+      default: $(resources.inputs.docker-source.path)/ppc64le/Dockerfile
     - name: pathToContext
       type: string
       description: |
         The build context used by Kaniko
         (https://github.com/GoogleContainerTools/kaniko#kaniko-build-conitexts)
-      default: $(resources.inputs.docker-source-ppc.path)
+      default: $(resources.inputs.docker-source.path)
   resources:
     inputs:
-      - name: docker-source-ppc
+      - name: docker-source
         type: git
     outputs:
       - name: builtImage-ppc
@@ -37,7 +37,7 @@ spec:
       args:
         - --dockerfile=$(params.pathToDockerFile)
         - --destination=$(resources.outputs.builtImage-ppc.url)
-        - --context=/workspace/docker-source-ppc
+        - --context=/workspace/docker-source
         - --build-arg
         - https_proxy=http://sneha-3d3ceb-bastion-0:3128
         - --build-arg

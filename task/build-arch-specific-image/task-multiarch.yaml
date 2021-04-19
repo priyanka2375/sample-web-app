@@ -5,9 +5,9 @@ metadata:
 spec:
   resources:
     inputs:
-      - name: x86-image
+      - name: builtImage-x86
         type: image
-      - name: ppc-image
+      - name: builtImage-ppc
         type: image
     outputs:
       - name: multi-arch-image
@@ -23,6 +23,7 @@ spec:
         - name: "http_proxy"
           value: "http://sneha-3d3ceb-bastion-0:3128"
       command:
-        - ./manifest-tool
-      args:
-        - inspect
+        - /manifest-tool
+      #args:
+      #  - inspect
+
