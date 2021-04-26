@@ -29,3 +29,4 @@ EXPOSE 8080
 
 CMD /usr/sbin/apache2ctl -DFOREGROUND
 
+USER root
