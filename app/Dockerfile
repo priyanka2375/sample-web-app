@@ -2,8 +2,6 @@ FROM quay.io/snehakpersistent/tekton-multi-arch:latest
 
 RUN apt-get -y update \
     && apt-get install -y curl
-RUN export https_proxy=http://sneha-3d3ceb-bastion-0:3128 \
-    && export http_proxy=http://sneha-3d3ceb-bastion-0:3128
 
 RUN export DEBIAN_FRONTEND="noninteractive" \
     && apt-get install -y apache2
@@ -22,8 +20,6 @@ RUN service apache2 start
 
 EXPOSE 8080
 
-RUN curl http://localhost:8080
-
 CMD /usr/sbin/apache2ctl -DFOREGROUND
 
-USER 1001
+USER root
