@@ -5,7 +5,7 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && echo "daemon off;" >> /etc/nginx/nginx.conf
-
+RUN whoami
 RUN sudo touch /var/log/nginx/error.log \
     && sudo chown -R www-data:www-data /var/log/nginx
 
