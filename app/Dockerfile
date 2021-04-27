@@ -9,9 +9,9 @@ RUN export DEBIAN_FRONTEND="noninteractive" \
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf \
     && sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf \
     && sed -i 's/:80/:8080/' /etc/apache2/sites-enabled/000-default.conf 
-RUN cat /etc/passwd
+
 RUN mkdir -p /var/run/apache2 
-RUN chgrp -R 0 /var/log/apache2 /var/run/apache2 \
+RUN chown -hR www-data:www-data /var/log/apache2 /var/run/apache2 \
     && chmod -R g=u /var/log/apache2 /var/run/apache2
 
 ADD index.html /var/www/html
@@ -22,4 +22,4 @@ EXPOSE 8080
 
 CMD /usr/sbin/apache2ctl -DFOREGROUND
 
-USER root
+USER www-data
