@@ -14,8 +14,7 @@ RUN groupadd --gid 5000 apacheuser \
     && useradd --home-dir /home/apacheuser --create-home --uid 5000 \
         --gid 5000 --shell /bin/sh --skel /dev/null apacheuser
 
-RUN chown -R apacheuser /var/run \
-    && mkdir -p /var/run/apache2 \
+RUN mkdir -p /var/run/apache2 \
     && chown -R apacheuser /var/log/apache2 /var/run/apache2
 
 ADD index.html /var/www/html
