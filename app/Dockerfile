@@ -20,7 +20,7 @@ RUN cd /var/run \
 
 ADD index.html /var/www/html
 
-RUN service apache2 start
+RUN sudo service apache2 start
 
 EXPOSE 8080
 
