@@ -1,0 +1,38 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: task-deploy-app
+spec:
+  resources:
+    inputs:
+      - name: docker-source-ppc
+        type: git
+      - name: builtImage-app
+        type: image
+      - name: test-cluster-ppc
+        type: cluster
+  steps:
+    - name: deploy-app
+      image: centos:latest
+      env:
+        - name: "KUBECONFIG"
+          value: "/workspace/test-cluster-ppc/kubeconfig"
+        - name: "https_proxy"
+          value: "http://sneha-3d3ceb-bastion-0:3128"
+        - name: "http_proxy"
+          value: "http://sneha-3d3ceb-bastion-0:3128"
+      script: |
+        #!/bin/sh
+        yum install -y wget tar git
+        wget https://mirror.openshift.com/pub/openshift-v4/clients/oc/4.6/linux-ppc64le/oc.tar.gz
+        tar -xvf oc.tar.gz
+        export PATH=$PATH:/workspace/
+        export KUBECONFIG=$KUBECONFIG
+        cat /workspace/test-cluster-ppc/kubeconfig
+        oc get nodes
+        oc new-project sample-php-project
+        oc new-app --name sample-php-app $(resources.inputs.builtImage-app.url) -n sample-php-project
+        oc import-image sample-php-app:ppc64le -n sample-php-project
+        oc expose svc/sample-php-app -n sample-php-project
+      securityContext:
+        runAsUser: 0

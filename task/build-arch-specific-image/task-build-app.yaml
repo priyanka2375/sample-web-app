@@ -1,0 +1,46 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-app-image
+spec:
+  params:
+    - name: pathToDockerFile-app
+      type: string
+      description: The path to the dockerfile to build
+      default: $(resources.inputs.docker-source-ppc.path)/app/Dockerfile
+    - name: pathToContext
+      type: string
+      description: |
+        The build context used by Kaniko
+        (https://github.com/GoogleContainerTools/kaniko#kaniko-build-conitexts)
+      default: $(resources.inputs.docker-source-ppc.path)
+  resources:
+    inputs:
+      - name: docker-source-ppc
+        type: git
+    outputs:
+      - name: builtImage-app
+        type: image
+  steps:
+    - name: build-and-push
+      image: gcr.io/kaniko-project/executor:latest
+      # specifying DOCKER_CONFIG is required to allow kaniko to detect docker credential
+      env:
+        - name: "DOCKER_CONFIG"
+          value: "/tekton/home/.docker/"
+        - name: "https_proxy"
+          value: "http://sneha-3d3ceb-bastion-0:3128"
+        - name: "http_proxy"
+          value: "http://sneha-3d3ceb-bastion-0:3128"
+      command:
+        - /kaniko/executor
+      args:
+        - --dockerfile=$(params.pathToDockerFile-app)
+        - --destination=$(resources.outputs.builtImage-app.url)
+        - --context=/workspace/docker-source-ppc
+        - --build-arg
+        - https_proxy=http://sneha-3d3ceb-bastion-0:3128
+        - --build-arg
+        - http_proxy=http://sneha-3d3ceb-bastion-0:3128
+      securityContext:
+        runAsUser: 0
