@@ -1,31 +1,24 @@
 FROM quay.io/snehakpersistent/tekton-multi-arch:latest
 
-RUN apt-get -y update \
-    && apt-get install -y curl sudo
+USER root
 
-RUN export DEBIAN_FRONTEND="noninteractive" \
-    && apt-get install -y apache2
+# Fix per https://bugzilla.redhat.com/show_bug.cgi?id=1192200
+RUN yum -y install deltarpm yum-utils --disablerepo=*-eus-* --disablerepo=*-htb-* *-sjis-*\
+    --disablerepo=*-ha-* --disablerepo=*-rt-* --disablerepo=*-lb-* --disablerepo=*-rs-* --disablerepo=*-sap-*
 
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf \
-    && sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf \
-    && sed -i 's/:80/:8080/' /etc/apache2/sites-enabled/000-default.conf 
+RUN yum-config-manager --disable *-eus-* *-htb-* *-ha-* *-rt-* *-lb-* *-rs-* *-sap-* *-sjis* > /dev/null
 
-RUN . /etc/apache2/envvars \
-    && env \
-    && sudo service apache2 start
+# Update image
+RUN yum install httpd procps-ng MySQL-python -y
 
-RUN mkdir -p /var/run/apache2 \
-    && ls -al /var/run \
-    && chgrp -R 0 /var/log/apache2 /var/run/apache2 \
-    && chmod -R g=u /var/log/apache2 /var/run/apache2
+# Add configuration file
+ADD action /var/www/cgi-bin/action
+RUN echo "PassEnv DB_SERVICE_SERVICE_HOST" >> /etc/httpd/conf/httpd.conf
+RUN chown root:apache /var/www/cgi-bin/action
+RUN chmod 755 /var/www/cgi-bin/action
+ADD index.html /var/www/html/index.html
+#RUN echo "The Web Server is Running" > /var/www/html/index.html
+EXPOSE 80
 
-ADD index.html /var/www/html
-
-RUN service apache2 start \
-    && service apache2 status
-
-EXPOSE 8080
-
-RUN curl http://localhost:8080
-
-CMD /usr/sbin/apache2ctl -DFOREGROUND
+# Start the service
+CMD mkdir /run/httpd ; /usr/sbin/httpd -D FOREGROUND
