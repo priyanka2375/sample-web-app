@@ -1,2 +1,2 @@
-FROM registry.redhat.io/rhel8/httpd-24
+FROM quay.io/snehakpersistent/httpd-24:ppc64le
 CMD echo "Hello World from a container running on $(uname -m)"
