@@ -1,3 +1,2 @@
-FROM quay.io/snehakpersistent/ubuntu:latest-ppc
-RUN uname -a; dpkg --configure -a; apt update -y
+FROM quay.io/snehakpersistent/ubi:ppc64le
 CMD echo "Hello World from a container running on $(uname -m)"
