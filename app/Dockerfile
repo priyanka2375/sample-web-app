@@ -15,12 +15,14 @@ RUN . /etc/apache2/envvars \
     && sudo service apache2 start
 
 RUN mkdir -p /var/run/apache2 \
+    && ls -al /var/run \
     && chgrp -R 0 /var/log/apache2 /var/run/apache2 \
     && chmod -R g=u /var/log/apache2 /var/run/apache2
 
 ADD index.html /var/www/html
 
-RUN service apache2 start
+RUN service apache2 start \
+    && service apache2 status
 
 EXPOSE 8080
 
