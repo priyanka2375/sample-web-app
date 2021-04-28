@@ -2,12 +2,6 @@ FROM quay.io/snehakpersistent/tekton-multi-arch:latest
 
 USER root
 
-# Fix per https://bugzilla.redhat.com/show_bug.cgi?id=1192200
-RUN yum -y install deltarpm yum-utils --disablerepo=*-eus-* --disablerepo=*-htb-*\
-    --disablerepo=*-ha-* --disablerepo=*-rt-* --disablerepo=*-lb-* --disablerepo=*-rs-* --disablerepo=*-sap-*
-
-RUN yum-config-manager --disable *-eus-* *-htb-* *-ha-* *-rt-* *-lb-* *-rs-* *-sap-* > /dev/null
-
 # Update image
 RUN yum install httpd procps-ng MySQL-python -y
 
