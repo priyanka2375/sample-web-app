@@ -11,6 +11,7 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf \
     && sed -i 's/:80/:8080/' /etc/apache2/sites-enabled/000-default.conf 
 
 RUN sudo . /etc/apache2/envvars \
+    && env \
     && sudo service apache2 start
 
 RUN sudo mkdir -p /var/run/apache2 \
