@@ -14,14 +14,16 @@ RUN . /etc/apache2/envvars \
     && env \
     && sudo service apache2 start
 
-RUN sudo mkdir -p /var/run/apache2 \
-    && sudo chgrp -R 0 /var/log/apache2 /var/run/apache2 \
-    && sudo chmod -R g=u /var/log/apache2 /var/run/apache2
+RUN mkdir -p /var/run/apache2 \
+    && chgrp -R 0 /var/log/apache2 /var/run/apache2 \
+    && chmod -R g=u /var/log/apache2 /var/run/apache2
 
 ADD index.html /var/www/html
 
-RUN sudo service apache2 start
+RUN service apache2 start
 
 EXPOSE 8080
+
+RUN curl http://localhost:8080
 
 CMD /usr/sbin/apache2ctl -DFOREGROUND
