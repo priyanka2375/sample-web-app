@@ -4,14 +4,14 @@ RUN apt-get -y update \
     && apt-get install -y curl
 
 RUN export DEBIAN_FRONTEND="noninteractive" \
-    && apt-get install -y apache2 sudo
+    && apt-get install -y apache2
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf \
     && sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf \
     && sed -i 's/:80/:8080/' /etc/apache2/sites-enabled/000-default.conf 
 
-RUN source /etc/apache2/envvars \
-    && sudo service apache2 start
+RUN . /etc/apache2/envvars \
+    && service apache2 start
 
 RUN cd /var/run \
     && mkdir -p apache2 \
@@ -20,7 +20,7 @@ RUN cd /var/run \
 
 ADD index.html /var/www/html
 
-RUN sudo service apache2 start
+RUN service apache2 start
 
 EXPOSE 8080
 
