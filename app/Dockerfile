@@ -3,7 +3,7 @@ FROM quay.io/snehakpersistent/tekton-multi-arch:latest
 USER root
 
 # Update image
-RUN yum install httpd procps-ng MySQL-python -y
+RUN yum install httpd -y
 
 # Add configuration file
 ADD action /var/www/cgi-bin/action
