@@ -28,9 +28,21 @@ spec:
         tar -xvf oc.tar.gz
         export PATH=$PATH:/workspace/
         export KUBECONFIG=$KUBECONFIG
-        cat /workspace/test-cluster-ppc/kubeconfig
         oc get nodes
-        oc new-project sample-php-project
-        oc new-app --name sample-php-app $(resources.inputs.builtImage-app.url) -n sample-php-project
-        oc import-image sample-php-app:ppc64le -n sample-php-project
-        oc create route edge sample-php-app --service=sample-php-app --port=8080-tcp --insecure-policy=Redirect -n sample-php-project
+        #oc new-project sample-php-project
+        #oc new-app --name sample-php-app $(resources.inputs.builtImage-app.url) -n sample-php-project
+        #oc import-image sample-php-app:ppc64le -n sample-php-project
+        #oc create route edge sample-php-app --service=sample-php-app --port=8080-tcp --insecure-policy=Redirect -n sample-php-project
+        ocprojectcheck=0
+        oc project sample-php-project || ocprojectcheck=$?
+        echo $ocprojectcheck
+        if [ $ocprojectcheck == 1 ];
+        then 
+        oc new-project sample-php-project ;
+        oc new-app --name sample-php-app $(resources.inputs.builtImage-app.url) -n sample-php-project ;
+        fi
+        if [ $ocprojectcheck == 0 ]; then oc import-image sample-php-app:ppc64le -n sample-php-project ; fi
+        if [ $ocprojectcheck == 1 ]; then 
+        oc create route edge sample-php-app --service=sample-php-app --port=8080-tcp --insecure-policy=Redirect -n sample-php-project ;
+        fi
+

@@ -5,10 +5,8 @@ metadata:
 spec:
   resources:
     inputs:
-      - name: builtImage-x86
-        type: image
-      - name: builtImage-ppc
-        type: image
+      - name: docker-source-ppc
+        type: git
     outputs:
       - name: multi-arch-image
         type: image
@@ -24,6 +22,8 @@ spec:
           value: "http://sneha-3d3ceb-bastion-0:3128"
       command:
         - /manifest-tool
-      #args:
-      #  - inspect
+      args:
+        - push
+        - from-spec 
+        - $(resources.inputs.docker-source-ppc.path)/task/build-arch-specific-image/manifest.yaml
 
