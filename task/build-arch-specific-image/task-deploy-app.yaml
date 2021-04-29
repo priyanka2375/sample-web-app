@@ -33,6 +33,4 @@ spec:
         oc new-project sample-php-project
         oc new-app --name sample-php-app $(resources.inputs.builtImage-app.url) -n sample-php-project
         oc import-image sample-php-app:ppc64le -n sample-php-project
-        oc expose svc/sample-php-app -n sample-php-project
-      securityContext:
-        runAsUser: 0
+        oc create route edge sample-php-app --service=sample-php-app --port=8080-tcp --insecure-policy=Redirect -n sample-php-project

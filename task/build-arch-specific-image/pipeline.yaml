@@ -6,6 +6,7 @@ spec:
   params: 
     - name: pathToDockerFile-ppc
     - name: pathToContext
+    - name: pathToDockerFile-app
   resources:
     - name: docker-source-x86
       type: git
@@ -19,6 +20,10 @@ spec:
       type: image
     - name: builtImage-multiarch
       type: image
+    - name: builtImage-app
+      type: image
+    - name: test-cluster-ppc
+      type: cluster
   tasks:
     - name: build-x86-image
       taskRef:
@@ -52,16 +57,37 @@ spec:
     - name: build-multi-arch-image
       taskRef:
         name: build-multi-arch-image
+      runAfter:
+        - build-ppc-image
       resources:
         inputs:
-          - name: builtImage-x86
-            resource: builtImage-x86
-            from:
-              - build-x86-image
-          - name: builtImage-ppc
-            resource: builtImage-ppc
-            from:
-              - build-ppc-image
+          - name: docker-source-ppc
+            resource: docker-source-ppc
         outputs:
           - name: multi-arch-image
             resource: builtImage-multiarch
+    - name: build-app-image
+      taskRef:
+        name: build-app-image
+      runAfter:
+        - build-multi-arch-image
+      resources:
+        inputs:
+          - name: docker-source-ppc
+            resource: docker-source-ppc
+        outputs:
+          - name: builtImage-app
+            resource: builtImage-app
+    - name: deploy-app
+      taskRef:
+        name: task-deploy-app
+      runAfter:
+        - build-app-image
+      resources:
+        inputs:
+          - name:  docker-source-ppc
+            resource: docker-source-ppc
+          - name: builtImage-app
+            resource: builtImage-app
+          - name: test-cluster-ppc
+            resource: test-cluster-ppc

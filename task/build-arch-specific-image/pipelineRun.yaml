@@ -9,6 +9,8 @@ spec:
   params:
     - name: pathToDockerFile-ppc
       value: ppc64le/Dockerfile
+    - name: pathToDockerFile-app
+      value: app/Dockerfile
     - name: pathToContext
       value: https://github.com/snehakpersistent/sample-web-app
   resources:
@@ -30,4 +32,9 @@ spec:
     - name: builtImage-multiarch
       resourceRef:
         name: quay-resource-multiarch
-
+    - name: builtImage-app
+      resourceRef:
+        name: quay-resource-app
+    - name: test-cluster-ppc
+      resourceRef:
+        name: ppc-cluster
