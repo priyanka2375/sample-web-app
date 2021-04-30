@@ -1,0 +1,142 @@
+apiVersion: tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: sample-webapp-triggertemplate
+spec:
+  params:
+  - name: pathToDockerFile-ppc
+  - name: pathToContext
+  - name: pathToDockerFile-app
+  resourcetemplates:
+  - apiVersion: tekton.dev/v1alpha1
+    kind: PipelineResource
+    metadata:
+      name: git-source-ppc
+    spec:
+      type: git
+      params:
+        - name: revision
+          value: main
+        - name: url
+          value: https://github.com/snehakpersistent/sample-web-app
+        - name: httpsProxy
+          value: "http://sneha-3d3ceb-bastion-0:3128"
+  - apiVersion: tekton.dev/v1alpha1
+    kind: PipelineResource
+    metadata:
+      name: git-source-x86
+    spec:
+      type: git
+      params:
+        - name: revision
+          value: main
+        - name: url
+          value: https://github.com/snehakpersistent/sample-web-app
+        - name: httpsProxy
+          value: "http://sneha-3d3ceb-bastion-0:3128"
+  - apiVersion: tekton.dev/v1alpha1
+    kind: PipelineResource
+    metadata:
+      name: ppc-cluster
+    spec:
+      type: cluster
+      params:
+        - name: url
+          value: https://api.sneha-3d3ceb.130.198.103.117.nip.io:6443
+        - name: user
+          value: admin
+        - name: token
+          value: sha256~L5H1ts8bc8DVcMKjrhRci-u9qJCsg2_rkyVSBnNKLcs
+        - name: insecure
+          value: "true"
+  - apiVersion: tekton.dev/v1alpha1
+    kind: PipelineResource
+    metadata:
+      name: x86-cluster
+    spec:
+      type: cluster
+      params:
+        - name: url
+          value: https://c108-e.eu-gb.containers.cloud.ibm.com:31206
+        - name: token
+          value: sha256~0t28dEp6P0srenkIn8DRx2gKKayZqH_sOBKy83Tnej4
+        - name: user
+          value: IAM#sneha.kanekar1@ibm.com
+        - name: insecure
+          value: "true"
+  - apiVersion: tekton.dev/v1alpha1
+    kind: PipelineResource
+    metadata:
+      name: quay-resource-ppc
+    spec:
+      type: image
+      params:
+        - name: url
+          value: quay.io/snehakpersistent/tekton-multi-arch:ppc64le
+  - apiVersion: tekton.dev/v1alpha1
+    kind: PipelineResource
+    metadata:
+      name: quay-resource-x86
+    spec:
+      type: image
+      params:
+        - name: url
+          value: quay.io/snehakpersistent/tekton-multi-arch:x86
+  - apiVersion: tekton.dev/v1alpha1
+    kind: PipelineResource
+    metadata:
+      name: quay-resource-multiarch
+    spec:
+      type: image
+      params:
+        - name: url
+          value: quay.io/snehakpersistent/tekton-multi-arch:latest
+  - apiVersion: tekton.dev/v1alpha1
+    kind: PipelineResource
+    metadata:
+      name: quay-resource-app
+    spec:
+      type: image
+      params:
+        - name: url
+          value: quay.io/snehakpersistent/tekton-sample-app:ppc64le
+  - apiVersion: tekton.dev/v1beta1
+    kind: PipelineRun
+    metadata:
+      name: sample-webapp-pipelinerun
+    spec:
+      serviceAccountName: pipeline
+      pipelineRef:
+        name: sample-webapp-pipeline
+      params:
+        - name: pathToDockerFile-ppc
+          value: $(tt.params.pathToDockerFile-ppc)
+        - name: pathToDockerFile-app
+          value: $(tt.params.pathToDockerFile-app)
+        - name: pathToContext
+          value: $(tt.params.pathToContext)
+      resources:
+        - name: docker-source-ppc
+          resourceRef:
+            name: git-source-ppc
+        - name: docker-source-x86
+          resourceRef:
+            name: git-source-x86
+        - name: test-cluster
+          resourceRef:
+            name: x86-cluster
+        - name: builtImage-x86
+          resourceRef:
+            name: quay-resource-x86
+        - name: builtImage-ppc
+          resourceRef:
+            name: quay-resource-ppc
+        - name: builtImage-multiarch
+          resourceRef:
+            name: quay-resource-multiarch
+        - name: builtImage-app
+          resourceRef:
+            name: quay-resource-app
+        - name: test-cluster-ppc
+          resourceRef:
+            name: ppc-cluster
