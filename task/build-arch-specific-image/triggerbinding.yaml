@@ -1,0 +1,12 @@
+apiVersion: tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  name: sample-webapp-triggerbinding
+spec:
+  params:
+  - name: pathToDockerFile-ppc
+    value: ppc64le/Dockerfile
+  - name: pathToDockerFile-app
+    value: app/Dockerfile
+  - name: pathToContext
+    value: $(body.repository.url)
