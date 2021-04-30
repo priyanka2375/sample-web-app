@@ -3,7 +3,7 @@ kind: EventListener
 metadata:
   name: sample-webapp-listener
 spec:
-  serviceAccountName: pipeline
+  serviceAccountName: tekton-triggers-sa
   triggers:
   - binding:
       name: sample-webapp-triggerbinding
