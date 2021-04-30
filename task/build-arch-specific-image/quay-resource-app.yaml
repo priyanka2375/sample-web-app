@@ -1,0 +1,9 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: quay-resource-app
+spec:
+  type: image
+  params:
+    - name: url
+      value: quay.io/snehakpersistent/tekton-sample-app:ppc64le
