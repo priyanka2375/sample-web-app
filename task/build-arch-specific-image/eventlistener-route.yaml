@@ -1,0 +1,15 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: sample-webapp-eventlistener
+spec:
+  port:
+    targetPort: 8081
+  to:
+    kind: Service
+    name: sample-webapp-listener
+    weight: 100
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
