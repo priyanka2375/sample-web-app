@@ -1,0 +1,15 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: ppc-cluster
+spec:
+  type: cluster
+  params:
+    - name: url
+      value: https://api.sneha-3d3ceb.130.198.103.117.nip.io:6443
+    - name: user
+      value: admin
+    - name: token
+      value: sha256~L5H1ts8bc8DVcMKjrhRci-u9qJCsg2_rkyVSBnNKLcs
+    - name: insecure
+      value: "true"
