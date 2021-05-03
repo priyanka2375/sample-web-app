@@ -8,12 +8,9 @@ spec:
     name: build-multi-arch-image
   resources:
     inputs:
-      - name: builtImage-x86
+      - name: docker-source-ppc
         resourceRef:
-          name: quay-resource-x86
-      - name: builtImage-ppc
-        resourceRef:
-          name: quay-resource-ppc
+          name: git-source-ppc
     outputs:
       - name: multi-arch-image
         resourceRef:

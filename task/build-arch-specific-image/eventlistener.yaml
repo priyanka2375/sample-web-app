@@ -1,11 +1,11 @@
-apiVersion: tekton.dev/v1alpha1
+apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
   name: sample-webapp-listener
 spec:
   serviceAccountName: tekton-triggers-sa
   triggers:
-  - binding:
-      name: sample-webapp-triggerbinding
-    template:
-      name: sample-webapp-triggertemplate
+    - bindings:
+        - ref: sample-webapp-triggerbinding
+      template:
+        ref: sample-webapp-triggertemplate

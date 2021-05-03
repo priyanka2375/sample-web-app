@@ -4,10 +4,10 @@ metadata:
   name: sample-webapp-eventlistener
 spec:
   port:
-    targetPort: 8081
+    targetPort: 8080
   to:
     kind: Service
-    name: sample-webapp-listener
+    name: el-sample-webapp-listener
     weight: 100
   tls:
     termination: edge

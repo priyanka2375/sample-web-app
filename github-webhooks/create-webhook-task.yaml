@@ -28,13 +28,18 @@ spec:
       default: "github.com"
     - name: WebhookEvents
       description: "List of events the webhook will send notifications for"
-      default: '[\"push\",\"pull_request\"]'
+      default: '[\"push\"]'
   steps:
   - name: create-webhook
-    image: pstauffer/curl:latest
+    image: curlimages/curl:latest
     volumeMounts:
     - name: github-secret
       mountPath: /var/secret
+    env:
+    - name: "https_proxy"
+      value: "http://sneha-3d3ceb-bastion-0:3128"
+    - name: "http_proxy"
+      value: "http://sneha-3d3ceb-bastion-0:3128"
     command:
     - sh
     args:
