@@ -22,4 +22,4 @@ spec:
     - name: ExternalDomain
       value: https://sample-webapp-eventlistener-sample-web-app.apps.sneha-3d3ceb.130.198.103.117.nip.io
   timeout: 1000s
-  serviceAccount: tekton-triggers-createwebhook
+  serviceAccountName: tekton-triggers-createwebhook
