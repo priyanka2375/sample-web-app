@@ -1,0 +1,25 @@
+apiVersion: tekton.dev/v1alpha1
+kind: TaskRun
+metadata:
+  name: create-api-repo-webhook-run
+spec:
+  taskRef:
+    name: create-webhook
+  inputs:
+    params:
+    - name: GitHubOrg
+      value: "snehakpersistent"
+    - name: GitHubUser
+      value: "snehakpersistent"
+    - name: GitHubRepo
+      value: "sample-web-app"
+    - name: GitHubSecretName
+      value: webhook-secret
+    - name: GitHubAccessTokenKey
+      value: token
+    - name: GitHubSecretStringKey
+      value: secret
+    - name: ExternalDomain
+      value: https://sample-webapp-eventlistener-sample-web-app.apps.sneha-3d3ceb.130.198.103.117.nip.io
+  timeout: 1000s
+  serviceAccount: tekton-triggers-createwebhook
