@@ -10,6 +10,6 @@ spec:
     - name: user
       value: admin
     - name: token
-      value: sha256~L5H1ts8bc8DVcMKjrhRci-u9qJCsg2_rkyVSBnNKLcs
+      value: sha256~_c7z1X_gMPpS27qcPtNjnSzk_v129nMCWQUrFxsv1QQ
     - name: insecure
       value: "true"

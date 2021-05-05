@@ -2,10 +2,12 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
   name: sample-webapp-listener
+  namespace: tekton-pipelines
 spec:
   serviceAccountName: tekton-triggers-sa
   triggers:
     - bindings:
         - ref: sample-webapp-triggerbinding
+        - ref: message-binding
       template:
         ref: sample-webapp-triggertemplate

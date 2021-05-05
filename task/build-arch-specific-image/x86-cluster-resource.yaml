@@ -8,7 +8,7 @@ spec:
     - name: url
       value: https://c108-e.eu-gb.containers.cloud.ibm.com:31206
     - name: token
-      value: sha256~iL815jhAPBebtM4h3L2L_BXO2_A7DV9VFk_KuQ5o6Hw
+      value: sha256~E_k6THndDC9UpeZpvGzSO15AhzCTLZKsPf_tmy_hxRY
     - name: user
       value: IAM#sneha.kanekar1@ibm.com
     - name: insecure

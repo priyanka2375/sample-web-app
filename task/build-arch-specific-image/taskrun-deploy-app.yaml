@@ -1,0 +1,23 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: deploy-app-taskrun
+spec:
+  serviceAccountName: pipeline
+  taskRef:
+    name: task-deploy-app
+  resources:
+    inputs:
+      - name: docker-source-ppc
+        resourceRef:
+          name: git-source-ppc
+      - name: builtImage-app
+        resourceRef:
+          name: quay-resource-app
+      - name: test-cluster-ppc
+        resourceRef:
+          name: ppc-cluster
+
+
+
+ 
