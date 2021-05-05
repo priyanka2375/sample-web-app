@@ -8,6 +8,5 @@ spec:
   triggers:
     - bindings:
         - ref: sample-webapp-triggerbinding
-        - ref: message-binding
       template:
         ref: sample-webapp-triggertemplate
