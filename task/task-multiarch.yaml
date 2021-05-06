@@ -25,5 +25,5 @@ spec:
       args:
         - push
         - from-spec 
-        - $(resources.inputs.docker-source-ppc.path)/task/build-arch-specific-image/manifest.yaml
+        - $(resources.inputs.docker-source-ppc.path)/config/manifest.yaml
 
