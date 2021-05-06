@@ -46,7 +46,7 @@ spec:
         - name: user
           value: admin
         - name: token
-          value: sha256~L5H1ts8bc8DVcMKjrhRci-u9qJCsg2_rkyVSBnNKLcs
+          value: sha256~W-jBLK58koSysn9q9TvQfXMIyG7ytNVO1Rrl367CTfY
         - name: insecure
           value: "true"
   - apiVersion: tekton.dev/v1alpha1
@@ -59,7 +59,7 @@ spec:
         - name: url
           value: https://c108-e.eu-gb.containers.cloud.ibm.com:31206
         - name: token
-          value: sha256~0t28dEp6P0srenkIn8DRx2gKKayZqH_sOBKy83Tnej4
+          value: sha256~rVR9ycE0hr0b33zqfcZrgxIOBC_EfmTNeTT79BS34UQ
         - name: user
           value: IAM#sneha.kanekar1@ibm.com
         - name: insecure
