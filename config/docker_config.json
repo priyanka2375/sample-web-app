@@ -3,9 +3,9 @@
  {
    "quay.io":
    {
-     "username":"snehakpersistent+test",
-     "password":"WHRGN30TUI98LY24ESQSWCAA9CKPD4OE3LE764E8QD9GJUCCDBKX4NREK558LHWM",
-     "auth":"c25laGFrcGVyc2lzdGVudCt0ZXN0OldIUkdOMzBUVUk5OExZMjRFU1FTV0NBQTlDS1BENE9FM0xFNzY0RThRRDlHSlVDQ0RCS1g0TlJFSzU1OExIV00="
+     "username":"quay_username",
+     "password":"quay_password",
+     "auth":"base64(quay_username:quay_password)"
    }
  },
  "proxies":
