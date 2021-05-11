@@ -26,13 +26,9 @@ spec:
         yum install -y wget tar git
         wget https://mirror.openshift.com/pub/openshift-v4/clients/oc/4.6/linux-ppc64le/oc.tar.gz
         tar -xvf oc.tar.gz
-        export PATH=$PATH:/workspace/
+        export PATH=$PATH:/
         export KUBECONFIG=$KUBECONFIG
         oc get nodes
-        #oc new-project sample-php-project
-        #oc new-app --name sample-php-app $(resources.inputs.builtImage-app.url) -n sample-php-project
-        #oc import-image sample-php-app:ppc64le -n sample-php-project
-        #oc create route edge sample-php-app --service=sample-php-app --port=8080-tcp --insecure-policy=Redirect -n sample-php-project
         ocprojectcheck=0
         oc project sample-php-project || ocprojectcheck=$?
         echo $ocprojectcheck
