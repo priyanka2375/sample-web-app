@@ -30,15 +30,15 @@ spec:
         export KUBECONFIG=$KUBECONFIG
         oc get nodes
         ocprojectcheck=0
-        oc project sample-php-project || ocprojectcheck=$?
+        oc project sample-app-project || ocprojectcheck=$?
         echo $ocprojectcheck
         if [ $ocprojectcheck == 1 ];
         then 
-        oc new-project sample-php-project ;
-        oc new-app --name sample-php-app $(resources.inputs.builtImage-app.url) -n sample-php-project ;
+        oc new-project sample-app-project ;
+        oc new-app --name hello-world-app $(resources.inputs.builtImage-app.url) -n sample-app-project ;
         fi
-        if [ $ocprojectcheck == 0 ]; then oc import-image sample-php-app:ppc64le -n sample-php-project ; fi
+        if [ $ocprojectcheck == 0 ]; then oc import-image hello-world-app:ppc64le -n sample-app-project ; fi
         if [ $ocprojectcheck == 1 ]; then 
-        oc create route edge sample-php-app --service=sample-php-app --port=8080-tcp --insecure-policy=Redirect -n sample-php-project ;
+        oc create route edge hello-world-app --service=hello-world-app --port=8080-tcp --insecure-policy=Redirect -n sample-app-project ;
         fi
 
