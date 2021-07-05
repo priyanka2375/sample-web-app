@@ -4,73 +4,18 @@ metadata:
   name: sample-webapp-pipeline
 spec:
   params: 
-    - name: pathToDockerFile-ppc
-    - name: pathToContext
     - name: pathToDockerFile-app
   resources:
-    - name: docker-source-x86
-      type: git
     - name: docker-source-ppc
       type: git
-    - name: test-cluster
-      type: cluster
-    - name: builtImage-x86
-      type: image
-    - name: builtImage-ppc
-      type: image
-    - name: builtImage-multiarch
-      type: image
     - name: builtImage-app
       type: image
     - name: test-cluster-ppc
       type: cluster
   tasks:
-    - name: build-x86-image
-      taskRef:
-        name: build-arch-specific-image-x86
-      resources:
-        inputs:
-          - name: docker-source
-            resource: docker-source-x86
-          - name: test-cluster
-            resource: test-cluster
-        outputs:
-          - name: builtImage-x86
-            resource: builtImage-x86
-    - name: build-ppc-image
-      taskRef:
-        name: build-arch-specific-image-ppc
-      runAfter:
-        - build-x86-image
-      params:
-        - name: pathToDockerFile
-          value: $(params.pathToDockerFile-ppc)
-        - name: pathToContext
-          value: $(params.pathToContext)
-      resources:
-        inputs:
-          - name: docker-source
-            resource: docker-source-ppc
-        outputs:
-          - name: builtImage-ppc
-            resource: builtImage-ppc
-    - name: build-multi-arch-image
-      taskRef:
-        name: build-multi-arch-image
-      runAfter:
-        - build-ppc-image
-      resources:
-        inputs:
-          - name: docker-source-ppc
-            resource: docker-source-ppc
-        outputs:
-          - name: multi-arch-image
-            resource: builtImage-multiarch
     - name: build-app-image
       taskRef:
         name: build-app-image
-      runAfter:
-        - build-multi-arch-image
       resources:
         inputs:
           - name: docker-source-ppc

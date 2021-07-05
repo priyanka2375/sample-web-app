@@ -7,31 +7,12 @@ spec:
   pipelineRef:
     name: sample-webapp-pipeline
   params:
-    - name: pathToDockerFile-ppc
-      value: ppc64le/Dockerfile
     - name: pathToDockerFile-app
       value: app/Dockerfile
-    - name: pathToContext
-      value: https://github.com/snehakpersistent/sample-web-app
   resources:
     - name: docker-source-ppc
       resourceRef:
         name: git-source-ppc
-    - name: docker-source-x86
-      resourceRef:
-        name: git-source-x86
-    - name: test-cluster
-      resourceRef:
-        name: x86-cluster
-    - name: builtImage-x86
-      resourceRef:
-        name: quay-resource-x86
-    - name: builtImage-ppc
-      resourceRef:
-        name: quay-resource-ppc
-    - name: builtImage-multiarch
-      resourceRef:
-        name: quay-resource-multiarch
     - name: builtImage-app
       resourceRef:
         name: quay-resource-app

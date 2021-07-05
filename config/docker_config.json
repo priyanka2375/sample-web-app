@@ -3,17 +3,9 @@
  {
    "quay.io":
    {
-     "username":"quay_username",
+  i   "username":"quay_username",
      "password":"quay_password",
      "auth":"base64(quay_username:quay_password)"
-   }
- },
- "proxies":
- {
-   "default":
-   {
-     "httpProxy": "http://sneha-3d3ceb-bastion-0:3128",
-     "httpsProxy": "http://sneha-3d3ceb-bastion-0:3128"
    }
  }
 }
