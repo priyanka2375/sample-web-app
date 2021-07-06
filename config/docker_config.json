@@ -3,7 +3,7 @@
  {
    "quay.io":
    {
-  i   "username":"quay_username",
+     "username":"quay_username",
      "password":"quay_password",
      "auth":"base64(quay_username:quay_password)"
    }
