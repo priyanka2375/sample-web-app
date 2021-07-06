@@ -6,8 +6,6 @@ spec:
   type: git
   params:
     - name: revision
-      value: main
+      value: simple-pipeline
     - name: url
       value: https://github.com/snehakpersistent/sample-web-app
-    - name: httpsProxy
-      value: "http://sneha-3d3ceb-bastion-0:3128"

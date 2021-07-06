@@ -23,22 +23,14 @@ spec:
         type: image
   steps:
     - name: build-and-push
-      image: gcr.io/kaniko-project/executor:latest
+      image: gcr.io/kaniko-project/executor:v1.5.0
       # specifying DOCKER_CONFIG is required to allow kaniko to detect docker credential
       env:
         - name: "DOCKER_CONFIG"
           value: "/tekton/home/.docker/"
-        - name: "https_proxy"
-          value: "http://sneha-3d3ceb-bastion-0:3128"
-        - name: "http_proxy"
-          value: "http://sneha-3d3ceb-bastion-0:3128"
       command:
         - /kaniko/executor
       args:
         - --dockerfile=$(params.pathToDockerFile-app)
         - --destination=$(resources.outputs.builtImage-app.url)
         - --context=/workspace/docker-source-ppc
-        - --build-arg
-        - https_proxy=http://sneha-3d3ceb-bastion-0:3128
-        - --build-arg
-        - http_proxy=http://sneha-3d3ceb-bastion-0:3128

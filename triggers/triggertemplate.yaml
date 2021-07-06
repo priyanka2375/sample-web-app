@@ -14,11 +14,9 @@ spec:
       type: git
       params:
         - name: revision
-          value: main
+          value: simple-pipeline
         - name: url
           value: https://github.com/snehakpersistent/sample-web-app
-        - name: httpsProxy
-          value: "http://sneha-3d3ceb-bastion-0:3128"
   - apiVersion: tekton.dev/v1alpha1
     kind: PipelineResource
     metadata:
@@ -27,11 +25,11 @@ spec:
       type: cluster
       params:
         - name: url
-          value: https://api.sneha-3d3ceb.130.198.103.117.nip.io:6443
+          value: https://api.sneha-ppc-37a3.ibm.com:6443
         - name: user
           value: admin
         - name: token
-          value: token
+          value: sha256~3YjJdN65RsBhX8C8px5i6e3CNRFD46jxYdQ2W2__lf8
         - name: insecure
           value: "true"
   - apiVersion: tekton.dev/v1alpha1

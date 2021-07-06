@@ -20,6 +20,6 @@ spec:
     - name: GitHubSecretStringKey
       value: secret
     - name: ExternalDomain
-      value: https://sample-webapp-eventlistener-tekton-pipelines.apps.sneha-3d3ceb.130.198.103.117.nip.io
+      value: https://sample-webapp-eventlistener-tekton-pipelines.apps.sneha-ppc-37a3.ibm.com
   timeout: 1000s
   serviceAccountName: tekton-triggers-createwebhook

@@ -17,10 +17,6 @@ spec:
       env:
         - name: "KUBECONFIG"
           value: "/workspace/test-cluster-ppc/kubeconfig"
-        - name: "https_proxy"
-          value: "http://sneha-3d3ceb-bastion-0:3128"
-        - name: "http_proxy"
-          value: "http://sneha-3d3ceb-bastion-0:3128"
       script: |
         #!/bin/sh
         yum install -y wget tar git
