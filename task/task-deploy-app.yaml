@@ -17,6 +17,10 @@ spec:
       env:
         - name: "KUBECONFIG"
           value: "/workspace/test-cluster-ppc/kubeconfig"
+        - name: "https_proxy"
+          value: "http://address:port"
+        - name: "http_proxy"
+          value: "http://address:port"
       script: |
         #!/bin/sh
         yum install -y wget tar git
@@ -24,6 +28,8 @@ spec:
         tar -xvf oc.tar.gz
         export PATH=$PATH:/
         export KUBECONFIG=$KUBECONFIG
+        export HTTPS_PROXY=$https_proxy
+        export HTTP_PROXY=$http_proxy
         oc get nodes
         ocprojectcheck=0
         oc project sample-app-project || ocprojectcheck=$?
