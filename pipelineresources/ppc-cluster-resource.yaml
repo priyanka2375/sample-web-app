@@ -6,10 +6,10 @@ spec:
   type: cluster
   params:
     - name: url
-      value: https://api.sneha-ppc-37a3.ibm.com:6443
+      value: <server_url>
     - name: user
       value: admin
     - name: token
-      value: sha256~3YjJdN65RsBhX8C8px5i6e3CNRFD46jxYdQ2W2__lf8
+      value: <token_value>
     - name: insecure
       value: "true"
