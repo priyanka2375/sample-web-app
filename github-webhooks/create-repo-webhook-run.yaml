@@ -8,11 +8,11 @@ spec:
   inputs:
     params:
     - name: GitHubOrg
-      value: "snehakpersistent"
+      value: "github_username"
     - name: GitHubUser
-      value: "snehakpersistent"
+      value: "github_username"
     - name: GitHubRepo
-      value: "sample-web-app"
+      value: "repository_name"
     - name: GitHubSecretName
       value: webhook-secret
     - name: GitHubAccessTokenKey
@@ -20,6 +20,6 @@ spec:
     - name: GitHubSecretStringKey
       value: secret
     - name: ExternalDomain
-      value: https://sample-webapp-eventlistener-tekton-pipelines.apps.sneha-ppc-37a3.ibm.com
+      value: <Eventlistener url>
   timeout: 1000s
   serviceAccountName: tekton-triggers-createwebhook
