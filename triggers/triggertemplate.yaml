@@ -18,7 +18,7 @@ spec:
         - name: url
           value: https://github.com/snehakpersistent/sample-web-app
         - name: httpsProxy
-          value: "address:port"
+          value: "http://address:port"
   - apiVersion: tekton.dev/v1alpha1
     kind: PipelineResource
     metadata:
