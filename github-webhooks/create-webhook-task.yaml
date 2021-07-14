@@ -35,6 +35,11 @@ spec:
     volumeMounts:
     - name: github-secret
       mountPath: /var/secret
+    env:
+    - name: "https_proxy"
+      value: "http://address:port"
+    - name: "http_proxy"
+      value: "http://address:port"
     command:
     - sh
     args:
