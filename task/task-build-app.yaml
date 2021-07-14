@@ -28,9 +28,17 @@ spec:
       env:
         - name: "DOCKER_CONFIG"
           value: "/tekton/home/.docker/"
+        - name: "https_proxy"
+          value: "http://address:port"
+        - name: "http_proxy"
+          value: "http://address:port"
       command:
         - /kaniko/executor
       args:
         - --dockerfile=$(params.pathToDockerFile-app)
         - --destination=$(resources.outputs.builtImage-app.url)
         - --context=/workspace/docker-source-ppc
+        - --build-arg
+        - https_proxy=http://address:port
+        - --build-arg
+        - http_proxy=http://address:port
