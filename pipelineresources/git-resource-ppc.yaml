@@ -9,3 +9,5 @@ spec:
       value: simple-pipeline
     - name: url
       value: https://github.com/snehakpersistent/sample-web-app
+    - name: httpsProxy
+      value: "http://address:port"
